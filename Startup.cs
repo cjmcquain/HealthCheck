@@ -26,6 +26,8 @@ namespace HealthCheck
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddHealthChecks().AddCheck<ICMPHealthCheck>("ICMP");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +60,8 @@ namespace HealthCheck
             }
 
             app.UseRouting();
+
+            app.UseHealthChecks("/hc");
 
             app.UseEndpoints(endpoints =>
             {
